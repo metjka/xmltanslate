@@ -16,6 +16,7 @@ namespace trans {
         public string LangTo {
             get { return _langTo; }
             set { _langTo = value; }
+
         }
 
         public string LangFrom {
