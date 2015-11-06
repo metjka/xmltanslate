@@ -16,8 +16,13 @@ namespace trans {
         public string LangTo {
             get { return _langTo; }
             set { _langTo = value; }
+        
 
-        }
+    }
+
+
+
+
 
         public string LangFrom {
             get { return _langFrom; }
@@ -41,7 +46,7 @@ namespace trans {
             this.text = text;
             LangFrom =langFrom;
             LangTo = langTo;
-
+            int a;
             this.AcceptButton = button2;
             this.button2.DialogResult = DialogResult.OK;
 
