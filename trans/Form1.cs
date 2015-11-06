@@ -20,6 +20,8 @@ namespace trans {
                 Filter = @"Xml|*.xml|Text Files|*.txt|All Files|*.*"
             };
 
+
+
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 StreamReader sr = new StreamReader(openFileDialog.FileName);
                 string xmlText = sr.ReadToEnd();
