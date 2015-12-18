@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace trans {
-     public class Languages {
+namespace TranslatorXml {
+    public class Languages {
+        private readonly Dictionary<string, string> langDictionary = new Dictionary<string, string>();
         private List<string> _lang = new List<string>();
-        private  Dictionary<string, string> langDictionary = new Dictionary<string, string>();
 
         public Languages() {
             langDictionary.Add("sq", "Albanian");
@@ -75,19 +75,17 @@ namespace trans {
             Lang = langDictionary.Values.ToList();
         }
 
-        public string GetLang(string key) {
-
-            return langDictionary.ContainsKey(key).ToString();
-        }
-
         public List<string> Lang {
             get { return _lang; }
             set { _lang = value; }
         }
 
-        public  string GetKodeByLang(string lang) {
-            return langDictionary.FirstOrDefault(x => x.Value == lang).Key;
+        public string GetLang(string key) {
+            return langDictionary.ContainsKey(key).ToString();
+        }
 
+        public string GetCodeByLang(string lang) {
+            return langDictionary.FirstOrDefault(x => x.Value == lang).Key;
         }
     }
 }

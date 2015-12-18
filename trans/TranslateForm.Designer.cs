@@ -1,4 +1,4 @@
-﻿namespace trans {
+﻿namespace TranslatorXml {
     partial class TranslateForm {
         /// <summary>
         /// Required designer variable.

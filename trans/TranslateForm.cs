@@ -1,67 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace trans {
+namespace TranslatorXml {
     public partial class TranslateForm : Form {
-        private readonly BackgroundWorker backgroundWorker =new BackgroundWorker();
-        private string text;
+        private readonly BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private readonly string text;
+        private YandexTranslate yandexTranslate;
+        public string LangTo { get; set; }
+        private string Key;
 
-        public string LangTo {
-            get { return _langTo; }
-            set { _langTo = value; }
-        
+        public string LangFrom { get; set; }
 
-    }
-
-
-
-
-
-        public string LangFrom {
-            get { return _langFrom; }
-            set { _langFrom = value; }
-        }
-
-        private string _translatedText;
-        private string _langTo;
-        private string _langFrom;
-
-        public string TranslatedText {
-            get { return _translatedText; }
-        }
+        public string TranslatedText { get; private set; }
 
         private void Tranclate_Load(object sender, EventArgs e) {
-            textBox1.Text = this.text;
-
+            textBox1.Text = text;
+            yandexTranslate = new YandexTranslate(Key);
         }
-        public TranslateForm(string text,string langFrom, string langTo) {
+
+        public TranslateForm(string text, string langFrom, string langTo, string key) {
             InitializeComponent();
             this.text = text;
-            LangFrom =langFrom;
+            this.Key = key;
+            LangFrom = langFrom;
             LangTo = langTo;
-            int a;
-            this.AcceptButton = button2;
-            this.button2.DialogResult = DialogResult.OK;
+            AcceptButton = button2;
+            button2.DialogResult = DialogResult.OK;
 
             backgroundWorker.DoWork += TranslateInBackground;
             backgroundWorker.RunWorkerCompleted += OnTranslateCompleted;
         }
 
         private void OnTranslateCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            textBox2.Text = _translatedText;
+            textBox2.Text = TranslatedText;
         }
 
         private void TranslateInBackground(object sender, DoWorkEventArgs e) {
-            _translatedText = YandexTranslate.Translate(LangFrom +"-"+LangTo, textBox1.Text);
-            
-            
+            TranslatedText = yandexTranslate.Translate(LangFrom + "-" + LangTo, textBox1.Text);
         }
 
         private void button1_Click(object sender, EventArgs e) {
@@ -69,10 +45,8 @@ namespace trans {
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            _translatedText = textBox2.Text;
+            TranslatedText = textBox2.Text;
             Close();
         }
-
-        
     }
 }
