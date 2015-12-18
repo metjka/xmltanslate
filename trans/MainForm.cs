@@ -164,47 +164,6 @@ namespace TranslateXMLTooL {
         }
 
 
-        public void loadingparty() {
-            string file = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\mygrid.bin";
-            if (File.Exists(file)) {
-                dataGridView1.Rows.Clear();
-
-                using (BinaryReader bw = new BinaryReader(File.Open(file, FileMode.Open))) {
-                    int n = bw.ReadInt32();
-                    int m = bw.ReadInt32();
-                    for (int i = 0; i < m; ++i) {
-                        dataGridView1.Rows.Add();
-                        for (int j = 0; j < n; ++j) {
-                            if (bw.ReadBoolean()) {
-                                dataGridView1.Rows[i].Cells[j].Value = bw.ReadString();
-                            }
-                            else bw.ReadBoolean();
-                        }
-                    }
-                }
-            }
-        }
-
-        public void savingparty() {
-            string file = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\mygrid.bin";
-
-            using (BinaryWriter bw = new BinaryWriter(File.Open(file, FileMode.Create))) {
-                bw.Write(dataGridView1.Columns.Count);
-                bw.Write(dataGridView1.Rows.Count);
-                foreach (DataGridViewRow dgvR in dataGridView1.Rows) {
-                    for (int j = 0; j < dataGridView1.Columns.Count; ++j) {
-                        var val = dgvR.Cells[j].Value;
-                        if (val == null) {
-                            bw.Write(false);
-                            bw.Write(false);
-                        }
-                        else {
-                            bw.Write(true);
-                            bw.Write(val.ToString());
-                        }
-                    }
-                }
-            }
-        }
+       
     }
 }
